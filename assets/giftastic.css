@@ -1,0 +1,21 @@
+.emotionButtons {
+  border-radius: 4px;
+  background-color: #28a745;
+  border: 1px solid #28a745;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.emotionButtons:hover {
+  background-color: #00000000;
+  color: #28a745;
+}
+
+.gif {
+  cursor: pointer;
+}
