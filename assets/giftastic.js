@@ -65,7 +65,6 @@ $(document).ready(function() {
         method: "GET"
       })
       .done(function(response) {
-        console.log(response)
         for (var i = 0; i < response.data.length; i++) {
           var responseItem = response.data[i]
           var gifCard = $("<div>").addClass("card mb-2 mr-3")
@@ -73,7 +72,6 @@ $(document).ready(function() {
           var src, imgURLStill
           src = imgURLStill = responseItem.images.fixed_height_still.url
           var imgURLAnimate = responseItem.images.fixed_height.url
-          // console.log("images", imgURL)
           var image = $("<img>").addClass("gif card-img-top").attr({
             src: src,
             still: imgURLStill,
@@ -85,7 +83,6 @@ $(document).ready(function() {
           gifCard.append(image)
           // Storing the rating data
           var rating = responseItem.rating
-          console.log("ratings", rating)
           // creating a div for the card
           var cardBody = $("<div>").addClass("card-body")
           // append to gifCard
@@ -112,11 +109,9 @@ $(document).ready(function() {
           if (state === "still") {
             $(this).attr("src", $(this).attr("animate"))
             $(this).attr("state", "animate")
-            console.log("animate test")
           } else {
             $(this).attr("src", $(this).attr("still"))
             $(this).attr("state", "still")
-            console.log("test if still is getting here")
           }
         })
       })
