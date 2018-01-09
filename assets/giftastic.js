@@ -2,22 +2,22 @@ $(document).ready(function() {
 
   var topics = ["excited", "mad", "whatever"]
 
-$('.btn-success').tooltip({
-  trigger: 'click',
-  placement: 'bottom'
-});
+  $('.btn-success').tooltip({
+    trigger: 'click',
+  });
 
-function setTooltip(btn, message) {
-  $(btn).tooltip('hide')
-    .attr('data-original-title', message)
-    .tooltip('show');
-}
+  function setTooltip(btn, message) {
+    $(btn).tooltip('enable')
+      .attr('data-original-title', message)
+      .tooltip('show')
+      .tooltip('disable')
+  }
 
-function hideTooltip(btn) {
-  setTimeout(function() {
-    $(btn).tooltip('hide');
-  }, 1000);
-}
+  function hideTooltip(btn) {
+    setTimeout(function() {
+    $(btn).tooltip('hide')
+    }, 1000)
+  }
 
   var clipboard = new Clipboard('.btn-success')
   // checks if items have been copied
@@ -27,6 +27,7 @@ function hideTooltip(btn) {
     console.info('Trigger:', e.trigger)
     setTooltip(e.trigger, 'Copied!');
     hideTooltip(e.trigger);
+
     //popOver()
     //alert("success")
     e.clearSelection()
@@ -80,7 +81,7 @@ function hideTooltip(btn) {
             animate: imgURLAnimate,
             state: "still"
           })
-          var embedURL = responseItem.embed_url
+          var embedURL = responseItem.url
           // Appending the image
           gifCard.append(image)
           // Storing the rating data
@@ -95,8 +96,10 @@ function hideTooltip(btn) {
           // Displaying the rating
           cardBody.append(ratingText)
           var embedButton = $("<button>")
-          embedButton.text("Embed Gif")
-          embedButton.addClass("btn-success")
+          //var linkIcon = $("<span>").addClass("fa fa-link")
+          //embedButton.append(linkIcon)
+          embedButton.text("Copy Gif")
+          embedButton.addClass("btn-success fa fa-link")
           embedButton.attr("data-clipboard-text", embedURL)
           // Display the embed button
           cardBody.append(embedButton)
@@ -117,12 +120,6 @@ function hideTooltip(btn) {
         })
       })
   }
-
-$(".btn-success").popover().click(function () {
-      setTimeout(function () {
-          $('.pop').popover('hide');
-      }, 2000);
-  });
 
   // This function handles events where the add button is clicked
   $(".btn-outline-success").on("click", function(event) {
