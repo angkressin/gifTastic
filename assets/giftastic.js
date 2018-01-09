@@ -15,7 +15,7 @@ $(document).ready(function() {
 
   function hideTooltip(btn) {
     setTimeout(function() {
-    $(btn).tooltip('hide')
+      $(btn).tooltip('hide')
     }, 1000)
   }
 
@@ -27,9 +27,6 @@ $(document).ready(function() {
     console.info('Trigger:', e.trigger)
     setTooltip(e.trigger, 'Copied!');
     hideTooltip(e.trigger);
-
-    //popOver()
-    //alert("success")
     e.clearSelection()
   })
   clipboard.on('error', function(e) {
@@ -54,6 +51,8 @@ $(document).ready(function() {
       // Adding the button to the buttonsDisplay div
       $(".buttonsDisplay").append(a)
     }
+    $(".clearButton").addClass("btn btn-primary btn-sm")
+    $(".clearButton").text("Clear GIFs")
   }
 
   function displayGifs() {
@@ -96,10 +95,12 @@ $(document).ready(function() {
           // Displaying the rating
           cardBody.append(ratingText)
           var embedButton = $("<button>")
-          //var linkIcon = $("<span>").addClass("fa fa-link")
-          //embedButton.append(linkIcon)
-          embedButton.text("Copy Gif")
-          embedButton.addClass("btn-success fa fa-link")
+          var buttonText = $("<p>")
+          buttonText.append("Copy Gif ")
+          var linkIcon = $("<span>").addClass("fa fa-link")
+          buttonText.append(linkIcon)
+          embedButton.append(buttonText)
+          embedButton.addClass("btn-success")
           embedButton.attr("data-clipboard-text", embedURL)
           // Display the embed button
           cardBody.append(embedButton)
@@ -127,10 +128,29 @@ $(document).ready(function() {
     // This line grabs the input from the textbox
     var topic = $("#topic-input").val().trim()
     // Adding topics from the textbox to our array
-    topics.push(topic)
-    // Calling renderButtons which handles the processing of topics array
-    renderButtons()
+    if (topic == "") {
+      alert("please enter an emotion")
+    } else {
+      topics.push(topic)
+      // Calling renderButtons which handles the processing of topics array
+      renderButtons()
+    }
   });
+
+  // function handles events where the undo button is clicked
+  $(".btn-outline-danger").on("click", function(event) {
+    event.preventDefault()
+    // remove recently added topic
+    if (topics.length > 3) {
+      topics.pop()
+    }
+    renderButtons()
+  })
+
+  //function handles clearing all the gifs
+  $(".clearButton").on("click", function() {
+    $(".gifsDisplay").empty()
+  })
 
   // Adding a click event listener to all elements with a class of "emotionButtons"
   $(document).on("click", ".emotionButtons", displayGifs)
