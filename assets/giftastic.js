@@ -125,6 +125,8 @@ $(document).ready(function() {
     // Adding topics from the textbox to our array
     if (topic == "") {
       alert("please enter an emotion")
+    } else if (topics.indexOf(topic) !== -1) {
+      alert("'" + topic + "'" + " already exists. Please enter another emotion")
     } else {
       topics.push(topic)
       // Calling renderButtons which handles the processing of topics array
